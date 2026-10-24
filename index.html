@@ -1,420 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blame a Buddy 💀</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap');
-
-:root {
-  --bg: #fff9ed;
-  --ink: #201b2e;
-  --purple: #8257ff;
-  --pink: #ff75b8;
-  --yellow: #ffe66d;
-  --green: #b9ff66;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Space Grotesk', sans-serif;
-}
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 6%;
-  border-bottom: 2px solid var(--ink);
-}
-.logo {
-  font-family: Syne, sans-serif;
-  font-weight: 800;
-  font-size: 21px;
-}
-.logo span { color: var(--purple); }
-.pill {
-  border: 2px solid var(--ink);
-  border-radius: 30px;
-  padding: 8px 12px;
-  font-size: 11px;
-  font-weight: bold;
-  background: var(--pink);
-}
-main {
-  max-width: 850px;
-  padding: 55px 20px 45px;
-  margin: auto;
-  text-align: center;
-}
-.tag {
-  display: inline-block;
-  background: var(--yellow);
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  padding: 9px 13px;
-  font-size: 12px;
-  font-weight: bold;
-  transform: rotate(-2deg);
-}
-h1 {
-  font-family: Syne, sans-serif;
-  font-size: clamp(43px, 10vw, 82px);
-  line-height: .98;
-  letter-spacing: -3px;
-  margin: 25px 0 18px;
-}
-h1 span { color: var(--purple); }
-.subtitle {
-  max-width: 490px;
-  margin: auto;
-  line-height: 1.7;
-  color: #686174;
-}
-.hero-emoji { font-size: 48px; margin: 20px 0 10px; }
-.panel {
-  background: white;
-  border: 2px solid var(--ink);
-  border-radius: 22px;
-  padding: 25px;
-  margin: 30px auto 0;
-  max-width: 570px;
-  text-align: left;
-  box-shadow: 7px 7px 0 var(--ink);
-}
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-select {
-  width: 100%;
-  padding: 14px;
-  background: var(--bg);
-  border: 2px solid var(--ink);
-  border-radius: 10px;
-  font: inherit;
-  margin-bottom: 15px;
-}
-button {
-  font-family: inherit;
-  font-weight: bold;
-  cursor: pointer;
-  border: 2px solid var(--ink);
-  border-radius: 11px;
-  padding: 14px 16px;
-  transition: transform .15s, box-shadow .15s;
-}
-button:hover {
-  transform: translate(-2px,-2px);
-  box-shadow: 3px 3px 0 var(--ink);
-}
-.generate {
-  background: var(--purple);
-  color: white;
-  width: 100%;
-  font-size: 16px;
-}
-.fane-button {
-  margin-top: 13px;
-  width: 100%;
-  background: var(--pink);
-  font-size: 16px;
-}
-.fane-note {
-  font-size: 11px;
-  text-align: center;
-  color: #686174;
-  margin: 10px 0 0;
-}
-.result {
-  display: none;
-  margin-top: 22px;
-  background: #f2ebff;
-  border: 2px dashed var(--purple);
-  border-radius: 14px;
-  padding: 20px;
-  overflow-wrap: anywhere;
-}
-.result.show { display: block; }
-.stamp {
-  display: inline-block;
-  background: var(--yellow);
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  padding: 7px 10px;
-  font-size: 11px;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-.result small {
-  display: block;
-  color: var(--purple);
-  font-weight: bold;
-}
-#excuse {
-  font-family: Syne, sans-serif;
-  font-size: 23px;
-  line-height: 1.45;
-  margin: 13px 0 20px;
-}
-.actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.actions button { flex: 1; }
-.copy { background: var(--yellow); }
-.again { background: white; }
-#feedback { font-size: 12px; margin-bottom: 0; }
-.counter {
-  margin: 24px auto 0;
-  font-size: 12px;
-  color: #686174;
-}
-.counter strong { color: var(--purple); }
-.rules {
-  max-width: 570px;
-  margin: 40px auto 0;
-  padding: 20px;
-  border: 2px dashed var(--ink);
-  border-radius: 16px;
-  background: var(--green);
-}
-.rules h2 { font-family: Syne, sans-serif; font-size: 21px; margin: 0 0 10px; }
-.rules p { font-size: 13px; line-height: 1.7; margin: 0; }
-footer {
-  text-align: center;
-  padding: 27px 15px;
-  font-size: 12px;
-  line-height: 1.8;
-  color: #686174;
-  border-top: 2px solid var(--ink);
-}
-@media(max-width:480px) {
-  nav { padding: 17px 5%; }
-  .logo { font-size: 18px; }
-  .pill { font-size: 9px; padding: 7px 9px; }
-  main { padding-top: 40px; }
-  h1 { letter-spacing: -2px; }
-  .panel { padding: 18px; }
-  #excuse { font-size: 20px; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blame a Buddy | Generator AI de Scuze</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Librărie AI gratuită pentru browser (GitHub Pages) -->
+    <script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 
-<nav>
-  <div class="logo">blame<span>a</span>buddy 💀</div>
-  <div class="pill">FANE IS SUS</div>
-</nav>
-
-<main>
-  <div class="tag">THE OFFICIAL FANE ACCUSATION MACHINE</div>
-  <div class="hero-emoji">🫵 😇 🫵</div>
-
-  <h1>NOT YOUR<br>FAULT. <span>FANE'S.</span></h1>
-
-  <p class="subtitle">
-    Ai întârziat? Ai spart ceva? N-ai făcut tema?
-    Nu te panica. Fane sigur are ceva de-a face cu asta.
-    Generează-ți alibiul și lasă-ne să inventăm explicația.
-  </p>
-
-  <section class="panel">
-    <label for="category">CE S-A ÎNTÂMPLAT? 👀</label>
-
-    <select id="category">
-      <option value="school">N-am făcut tema 📚</option>
-      <option value="late">Am întârziat iar ⏰</option>
-      <option value="accident">Am spart ceva 💥</option>
-      <option value="text">N-am răspuns la mesaj 👻</option>
-      <option value="friends">Am făcut o prostie cu prietenii 🤡</option>
-      <option value="random">Vreau o acuzație complet random 💀</option>
-    </select>
-
-    <button class="generate" onclick="generateExcuse(false)">
-      GENEREAZĂ O SCUZĂ ⚡
-    </button>
-
-    <button class="fane-button" onclick="generateExcuse(true)">
-      🚨 DĂ VINA PE FANE 🚨
-    </button>
-
-    <p class="fane-note">Fane e suspectul principal. Mereu.</p>
-
-    <div class="result" id="result" aria-live="polite">
-      <div class="stamp" id="stamp">CAZ REZOLVAT</div>
-      <small>DECLARAȚIA OFICIALĂ:</small>
-      <p id="excuse"></p>
-
-      <div class="actions">
-        <button class="copy" onclick="copyExcuse()">📋 COPIAZĂ</button>
-        <button class="again" onclick="generateExcuse(false)">🔄 ALTA!</button>
-      </div>
-      <p id="feedback" role="status"></p>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
-  </section>
 
-  <div class="counter">
-    Scuze generate în această sesiune: <strong id="count">0</strong>
-    <br>Fane suspectat în 100% dintre cazuri.
-  </div>
+    <main class="container">
+        <header class="app-header">
+            <div class="logo-icon">🎭</div>
+            <h1>Blame-a-Buddy</h1>
+            <p>Ai încurcat-o? Scrie ce ai făcut și AI-ul îți livrează o scuză salvatoare.</p>
+        </header>
 
-  <section class="rules">
-    <h2>📜 REGULAMENTUL LUI FANE</h2>
-    <p>
-      Regula 1: Fane e vinovat până la proba contrarie.
-      <br>Regula 2: Dacă există o probă contrarie, Fane a falsificat-o.
-      <br>Regula 3: Dacă Fane nu era acolo, era Fane din altă dimensiune.
-      <br>Regula 4: Fane a șters Regula 4.
-    </p>
-  </section>
-</main>
+        <section class="card">
+            <label for="situation-input">Pentru ce situație cauți o scuză?</label>
+            <div class="input-wrapper">
+                <textarea 
+                    id="situation-input" 
+                    rows="3" 
+                    placeholder="Ex: Am întârziat 40 de minute la birou / Am uitat să scot carnea din congelator / Nu am învățat pentru test..."
+                ></textarea>
+            </div>
 
-<footer>
-  MADE WITH ZERO ACCOUNTABILITY 💜
-  <br>Blame responsibly. Probably.
-  <br>Acest site este o glumă. Nicio investigație reală nu a fost efectuată.
-</footer>
+            <button id="generate-btn" class="primary-btn">
+                <span class="btn-text">Caută scuză 🔍</span>
+                <span class="spinner hidden"></span>
+            </button>
 
-<script>
-const excuses = {
-  school: [
-    "N-am făcut tema pentru că Fane mi-a furat motivația și a vândut-o pe OLX.",
-    "Fane a mâncat tema. N-am câine, dar am Fane.",
-    "Fane a convins imprimanta că educația este o conspirație.",
-    "Am vrut să fac tema, dar Fane a zis că e cringe.",
-    "Fane a mutat termenul-limită într-o dimensiune fără profesori.",
-    "Tema era gata, dar Fane a apăsat Ctrl+Alt+Delete pe viața mea.",
-    "Fane a furat caietul și acum îl folosește drept pernă.",
-    "Nu e vina mea că Fane a inventat procrastinarea."
-  ],
-  late: [
-    "Am întârziat pentru că Fane a încetinit timpul cu telecomanda universului.",
-    "Fane mi-a ascuns ceasul. Din nou. Al treilea ceas săptămâna asta.",
-    "Autobuzul a venit, dar Fane i-a zis să plece.",
-    "Fane a mutat școala mai departe de casa mea în timpul nopții.",
-    "Fane a furat dimineața. Eu sunt victima.",
-    "M-am trezit la timp, dar Fane a dat snooze la soare.",
-    "Fane a pus un semn STOP în fața calendarului.",
-    "Am pierdut cinci minute explicându-i lui Fane că e vina lui."
-  ],
-  accident: [
-    "Fane a folosit telechinezia ca să-mi cadă paharul. Are puteri, jur.",
-    "N-am spart nimic. Fane a schimbat legile fizicii.",
-    "Fane a pus obiectul exact în calea mâinii mele. Capcană evidentă.",
-    "Gravitația e prietenă cu Fane și are ceva personal cu mine.",
-    "Fane a făcut-o. Nu am dovezi, dar nici el alibi.",
-    "Obiectul s-a spart din cauza vibrațiilor emise de Fane.",
-    "Fane a dat lag realității și am scăpat totul din mână.",
-    "A fost un experiment științific organizat de Fane."
-  ],
-  text: [
-    "Fane mi-a confiscat degetele când voiam să răspund.",
-    "Fane a citit mesajul în locul meu și a decis că nu merită răspuns.",
-    "Fane a dezinstalat conversația din realitate.",
-    "Voiam să răspund, dar Fane a pus telefonul în modul avion.",
-    "Fane mi-a furat Wi-Fi-ul emoțional.",
-    "Mesajul a ajuns la Fane, care mi-a promis că răspunde. Minte.",
-    "Fane a ascuns butonul de trimis.",
-    "Am răspuns în gând. Fane trebuia să livreze mesajul telepatic."
-  ],
-  friends: [
-    "Fane a spus «ce se poate întâmpla?» și apoi s-a întâmplat totul.",
-    "Fane a început gluma, eu doar am fost prezent la locul crimei.",
-    "Fane a configurat grupul de prieteni pe modul haos.",
-    "Am fost manipulat de Fane și de cele două celule cerebrale ale lui.",
-    "Fane a zis că e o idee bună. Asta e toată apărarea mea.",
-    "Fane a dat startul. Eu am crezut că e încălzirea.",
-    "N-am făcut nimic. Fane a editat amintirile tuturor.",
-    "A fost o decizie colectivă, dar Fane a fost colectivul."
-  ],
-  random: [
-    "Fane. Nu mai pune întrebări.",
-    "Fane a dat update la univers fără să citească termenii și condițiile.",
-    "Fane a fost văzut ultima dată lângă conceptul de responsabilitate.",
-    "Fane a conspirat cu trei porumbei și un router.",
-    "Fane a furat Luna și a pus o veioză în locul ei.",
-    "Fane a dat vina pe mine înainte să se întâmple incidentul.",
-    "Fane a mutat toate lingurile cu trei centimetri spre stânga.",
-    "Fane a inventat luni dimineața ca să ne distrugă.",
-    "Fane a fost dat afară dintr-un grup de WhatsApp al fantomelor.",
-    "Fane a pus prea multă apă în atomii mei.",
-    "Fane a făcut update la realitate și a uitat să testeze.",
-    "Fane a convins gravitația să lucreze suplimentar.",
-    "Fane a trimis un porumbel să-mi fure ultimul neuron.",
-    "Am dovezi că Fane e vinovat. Le-a luat Fane.",
-    "Fane a făcut-o într-o cronologie pe care nici NASA n-o recunoaște.",
-    "Fane a furat manualul de instrucțiuni al existenței.",
-    "Fane a apăsat butonul roșu. Nu știm ce face, dar sigur e vina lui.",
-    "Fane a provocat incidentul înainte ca incidentul să fie inventat.",
-    "Fane a schimbat parola la bunul-simț.",
-    "Fane a fost văzut certându-se cu un automat de cafea."
-  ]
-};
+            <!-- Zona rezultat -->
+            <div id="result-box" class="result-box hidden">
+                <div class="result-header">
+                    <span>Scuza ta oficială:</span>
+                    <button id="copy-btn" title="Copiază textul" aria-label="Copiază scuza">📋 Copiază</button>
+                </div>
+                <p id="excuse-output"></p>
+            </div>
+        </section>
 
-let total = 0;
-let lastExcuse = "";
+        <footer>
+            <p>Creat cu ❤️ de <span class="brand">Blame-a-Buddy</span></p>
+        </footer>
+    </main>
 
-function generateExcuse(blameFane) {
-  const category = document.getElementById("category").value;
-
-  // Butonul special folosește toate scuzele din toate categoriile.
-  const allExcuses = Object.values(excuses).flat();
-  const list = blameFane ? allExcuses : excuses[category];
-
-  // Evită repetarea imediată, dacă există alte opțiuni.
-  let available = list.filter(item => item !== lastExcuse);
-  if (available.length === 0) available = list;
-
-  const excuse = available[
-    Math.floor(Math.random() * available.length)
-  ];
-
-  lastExcuse = excuse;
-
-  document.getElementById("excuse").textContent = excuse;
-  document.getElementById("result").classList.add("show");
-
-  document.getElementById("stamp").textContent = blameFane
-    ? "🚨 FANE E VINOVAT. CAZ ÎNCHIS."
-    : "💀 RESPONSABILITATEA? NICIODATĂ.";
-
-  document.getElementById("feedback").textContent = "";
-
-  total++;
-  document.getElementById("count").textContent = total;
-}
-
-async function copyExcuse() {
-  const text = document.getElementById("excuse").textContent;
-  const feedback = document.getElementById("feedback");
-
-  try {
-    await navigator.clipboard.writeText(text);
-    feedback.textContent = "Copiat! Du-te și acuză-l pe Fane. 💀";
-  } catch (error) {
-    const area = document.createElement("textarea");
-    area.value = text;
-    area.style.position = "fixed";
-    area.style.opacity = "0";
-    document.body.appendChild(area);
-    area.select();
-
-    try {
-      const copied = document.execCommand("copy");
-      feedback.textContent = copied
-        ? "Copiat! Fane nu mai are scăpare. 💀"
-        : "Selectează scuza și copiaz-o manual.";
-    } catch (e) {
-      feedback.textContent = "Selectează scuza și copiaz-o manual.";
-    }
-
-    area.remove();
-  }
-}
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
